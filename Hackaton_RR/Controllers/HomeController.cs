@@ -1,6 +1,8 @@
-﻿using Hackaton_RR.Models;
+﻿using Hackathon_RR.Models.HomeModels;
+using Hackaton_RR.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace Hackaton_RR.Controllers
 {
@@ -8,14 +10,33 @@ namespace Hackaton_RR.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IConfiguration _configuration;
+
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public ViewResult Input(string firstTable)
         {
-            return View();
+            InputModel inputModel = new InputModel()
+            {
+                testInput = "{\"stations\":[{\"Еманжелинск(1)\":[\"0\",\"38\",\"38\",\"25\",\"29\",\"7\",\"10\"]},{\"Омск(2)\":[\"0\",\"38\",\"38\",\"25\",\"29\",\"7\",\"10\"]}]}",
+                firstTable = JsonSerializer.Serialize(firstTable)
+            };
+            return View(inputModel);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult>  Output()
+        {
+            OutputModel outputModel = new OutputModel()
+            {
+
+            };
+            return View("Output");
         }
 
 
