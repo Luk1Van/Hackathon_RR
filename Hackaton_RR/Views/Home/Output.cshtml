@@ -1,31 +1,24 @@
-﻿@model Hackathon_RR.Models.HomeModels.OutputModel;
+﻿@using Hackathon_RR.Models.HomeModels;
+@model Dictionary<string, OutputModel>;
 
 <table class="table">
     <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+        <tr>           
+            <th scope="col">N локомотива</th>
+            <th scope="col">Маршрут</th>
+            <th scope="col">Расписание</th>
+            <th scope="col">Вагоны</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td></td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td></td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td></td>
-        </tr>
+        @foreach (var kvp in Model)
+        {
+            <tr>
+                <td>@kvp.Key</td>
+                <td>@string.Join(", ", kvp.Value.route)</td>
+                <td>@string.Join("<br>", kvp.Value.timetable)</td>
+                <td>@string.Join(", ", kvp.Value.vagons)</td>
+            </tr>
+        }
     </tbody>
 </table>

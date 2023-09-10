@@ -1,3 +1,6 @@
+using Hackathon_RR.MLintegration;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Hackaton_RR
 {
     public class Program
@@ -8,6 +11,8 @@ namespace Hackaton_RR
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IMLintegration, MLintegration>();
 
             var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿@model Hackathon_RR.Models.HomeModels.InputModel;
 
+
 <head>
     <link rel="stylesheet" href="https://bootstrapmade.com/assets/css/demo.css?v=5.3">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -12,12 +13,12 @@
         <div class="card-body">
             <form asp-action="Output" method="post">
                 <div class="mb-3">
-                    <label class="form-label" asp-for="firstTable">Введите таблицу станций и необходимых для доставки грузов в соответствии с синтаксисом Json</label>
-                    <input class="form-control" asp-for="firstTable" type="text" value=@Model.testInput>
+                    <label class="form-label" asp-for="firstTable">Введите массив станций и необходимых для доставки грузов в соответствии с синтаксисом Json</label>
+                    <input class="form-control" asp-for="firstTable" type="text" value=@ViewBag.testInput>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" asp-for="firstTable">Введите таблицу станций и необходимых для доставки грузов в соответствии с синтаксисом Json</label>
-                    <input class="form-control" asp-for="firstTable" type="text" value=@Model.testInput>
+                    <label class="form-label" asp-for="firstTable">Введите массив состоящий из номера локомотива, максимального кол-во вагонов и времени прохождения станций</label>
+                    <input class="form-control" asp-for="firstTable" type="text" value=@ViewBag.exampleInput>
                 </div>
                 <input type="submit" class="btn btn-primary" value="Отправить таблицы">
             </form>
@@ -34,7 +35,7 @@
                     <label for="formFile" class="form-label">Выберите файл формата Json</label>
                     <input class="form-control" type="file" id="formFile">
                 </div>
-                <input type="submit" class="btn btn-primary" value="Отправить таблицы">
+                <input type="submit" class="btn btn-primary" value="Отправить файл">
             </form>
         </div>
     </div>

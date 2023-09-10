@@ -1,8 +1,11 @@
-﻿using Hackathon_RR.Models.HomeModels;
+﻿using Hackathon_RR.Data;
+using Hackathon_RR.MLintegration;
+using Hackathon_RR.Models.HomeModels;
 using Hackaton_RR.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Text.Json;
+
 
 namespace Hackaton_RR.Controllers
 {
@@ -11,32 +14,34 @@ namespace Hackaton_RR.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly IConfiguration _configuration;
+        private readonly IMLintegration _mLintegration;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IMLintegration mLintegration)
         {
             _logger = logger;
             _configuration = configuration;
+            _mLintegration = mLintegration;
         }
 
         [HttpGet]
-        public ViewResult Input(string firstTable)
+        public ViewResult Input()
         {
-            InputModel inputModel = new InputModel()
-            {
-                testInput = "{\"stations\":[{\"Еманжелинск(1)\":[\"0\",\"38\",\"38\",\"25\",\"29\",\"7\",\"10\"]},{\"Омск(2)\":[\"0\",\"38\",\"38\",\"25\",\"29\",\"7\",\"10\"]}]}",
-                firstTable = JsonSerializer.Serialize(firstTable)
-            };
-            return View(inputModel);
+            ViewBag.testInput = "{\"stations\":[{\"Еманжелинск(1)\":[\"0\",\"38\",\"38\",\"25\",\"29\",\"7\",\"10\"]},{\"Омск(2)\":[\"0\",\"38\",\"38\",\"25\",\"29\",\"7\",\"10\"]}]}";
+            ViewBag.exampleInput = "{\"563\":{\"free_carriage\":[\"33\",\"20\",\"35\",\"3\"]}}";
+            return View();
         }
+
+        
 
         [HttpPost]
         public async Task<ActionResult>  Output()
         {
-            OutputModel outputModel = new OutputModel()
-            {
+            Data _data = new Data();
+            string json = _data.jsonResult;
 
-            };
-            return View("Output");
+            Dictionary<string, OutputModel> jsonData = JsonConvert.DeserializeObject<Dictionary<string, OutputModel>>(json);
+            
+            return View(jsonData);
         }
 
 
